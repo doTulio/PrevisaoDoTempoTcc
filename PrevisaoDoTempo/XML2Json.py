@@ -14,6 +14,7 @@ def __getmonth__(month):
         'DEZ': 12
     }[month]
 
+
 def __data__(data):
     from datetime import datetime as dt
     dia = int(data[0])
@@ -33,7 +34,7 @@ def __processacsv__(arquivoum, arquivodois):
         if ir < 2:
             continue
         row2 = arquivodoislist[ir]
-        for hora in range(23):
+        for hora in range(24):
             data = row[0].split('-')
             data.append(hora)
             radiacao = 'NULL'
@@ -54,13 +55,12 @@ def __processacsv__(arquivoum, arquivodois):
             )
     return objeto
 
+
 def __tratanulos__(dados):
     for i, item in enumerate(dados):
         for tup in item.iteritems():
             if tup[1] == 'NULL':
                 dados[i][tup[0]] = dados[i - 1][tup[0]]
-
-
 
 
 def __lerarquivo__(nome):
