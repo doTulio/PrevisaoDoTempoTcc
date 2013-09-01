@@ -1,3 +1,4 @@
+# coding=utf-8
 def __getmonth__(month):
     return {
         'JAN': 1,
@@ -65,21 +66,23 @@ def __tratanulos__(dados):
 
 def __lerarquivo__(nome):
     import csv
-
-    arquivo = open(nome,'rb')
+    arquivo = open(nome, 'rb')
     return csv.reader(arquivo, delimiter=',')
 
 
-def main():
+def __salvajson__(dados):
     import json
+    dados = json.dumps(dados, indent=4)
+    with open('A702.json', 'w+') as f:
+        f.write(dados)
+
+
+def main():
     from os import chdir
     chdir("/home/en/TCC/CSV")
     arquivoum = __lerarquivo__("A702_I.csv")
     arquivodois = __lerarquivo__("A702_II.csv")
     dados = __processacsv__(arquivoum, arquivodois)
     __tratanulos__(dados)
-    dados = json.dumps(dados, indent=4)
-    f = open('A702.json', 'r+')
-    f.write(dados)
-    f.close()
+    __salvajson__(dados)
     return

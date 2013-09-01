@@ -1,9 +1,12 @@
-import XML2Json
+# coding=utf-8
+# import xml2json
+import CodificaEntradas
+# import bpnn
 
 
 def main():
-    XML2Json.main()
+#   xml2json.main()
+    CodificaEntradas.main()
 
 if __name__ == "__main__":
     main()
-    exit()
