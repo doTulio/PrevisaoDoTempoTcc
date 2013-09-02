@@ -1,3 +1,4 @@
+# coding=utf-8
 def __lerjson__(json):
     with open('A702.json', 'r') as f:
         arquivojson = f.read().replace('\n', '')
@@ -32,19 +33,25 @@ def __tobinary__(json):
             elif word[0] == 'po':
                 bin = 6
             if word[0] != 'data':
-                item[word[0]] = __getBin__(word[1], bin)
+                valor = float(word[1])
+                # se for menor que 0, substitui por 0
+                if valor < 0:
+                    valor = 0
+                item[word[0]] = __getBin__(valor, bin)
+                if not item[word[0]].isdigit():
+                    raise Exception(u'negativo não tratado')
                 bin = ''.rjust(bin, '1')
                 bin = int(bin, 2)
                 if bin <= float(word[1]):
                     print 'bin: ' + str(bin)
                     print 'word[0]: ' + str(word[0])
                     print 'word[1]: ' + str(word[1])
-                    raise Exception('meh')
+                    raise Exception(u'valor maior que máximo da codificação binária')
 
 
 def __salvajson__(dados, json):
     dados = json.dumps(dados, indent=4)
-    with open('A702_binary.json', 'w+') as f:
+    with open('A702_binary.json', 'w') as f:
         f.write(dados)
 
 

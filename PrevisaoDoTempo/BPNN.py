@@ -10,9 +10,11 @@ import string
 
 random.seed(0)
 
+
 # calculate a random number where:  a <= rand < b
 def rand(a, b):
     return (b - a) * random.random() + a
+
 
 # Make a matrix (we could use NumPy to speed this up)
 def makeMatrix(I, J, fill=0.0):
@@ -21,9 +23,11 @@ def makeMatrix(I, J, fill=0.0):
         m.append([fill] * J)
     return m
 
+
 # our sigmoid function, tanh is a little nicer than the standard 1/(1+e^-x)
 def sigmoid(x):
     return math.tanh(x)
+
 
 # derivative of our sigmoid function, in terms of the output (i.e. y)
 def dsigmoid(y):
@@ -56,6 +60,7 @@ class NN:
         # last change in weights for momentum   
         self.ci = makeMatrix(self.ni, self.nh)
         self.co = makeMatrix(self.nh, self.no)
+
 
     def update(self, inputs):
         if len(inputs) != self.ni - 1:
@@ -122,7 +127,6 @@ class NN:
             error = error + 0.5 * (targets[k] - self.ao[k]) ** 2
         return error
 
-
     def test(self, patterns):
         for p in patterns:
             print(p[0], '->', self.update(p[0]))
@@ -146,26 +150,61 @@ class NN:
                 targets = p[1]
                 self.update(inputs)
                 error = error + self.backPropagate(targets, N, M)
-            if i % 100 == 0:
+            if i % 10 == 0:
                 print('error %-.5f' % error)
 
 
 def demo():
     # Teach network XOR function
+    """    pat = [
+        [[0, 0, 0], [0, 1]],
+        [[0, 0, 1], [1, 0]],
+        [[0, 1, 0], [0, 0]],
+        [[0, 1, 1], [1, 1]],
+        [[1, 0, 0], [0, 0]],
+        [[1, 0, 1], [1, 0]],
+        [[1, 1, 0], [0, 0]],
+        [[1, 1, 1], [1, 0]],
+    ]
+    """
+    pat = [
+        [[1, 0, 0], [1]],
+        [[1, 0, 1], [1]],
+        [[1, 1, 0], [1]],
+        [[1, 1, 1], [0]]
+    ]
+
     pat = [
         [[0, 0], [0]],
         [[0, 1], [1]],
         [[1, 0], [1]],
         [[1, 1], [0]]
     ]
-
     # create a network with two input, two hidden, and one output nodes
-    n = NN(2, 2, 1)
+    n = NN(2, 1, 1)
     # train it with some patterns
-    n.train(pat)
+    n.train(pat, iterations=1000)
     # test it
     n.test(pat)
+    n.weights()
 
 
-if __name__ == '__main__':
-    demo()
+def tempProximaHora():
+    from os import chdir
+    import json
+    chdir('/home/en/TCC/CSV')
+    with open('A702_t_+6.json') as f:
+        arquivo = f.read().replace('\n', '')
+        arquivo = json.loads(arquivo)
+    novoarquivo = []
+    for item in arquivo:
+        if True or rand(0, 1000) < 100:
+            novoarquivo.append(item)
+    print len(novoarquivo)
+    inputsize = len(novoarquivo[0][0])
+    outputsize = len(novoarquivo[0][1])
+    n = NN(inputsize, 2, outputsize)
+    n.train(novoarquivo, iterations=1000)
+    #n.test(novoarquivo)
+    n.weights()
+    pass

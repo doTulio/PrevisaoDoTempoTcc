@@ -1,12 +1,18 @@
 # coding=utf-8
-# import xml2json
+import XML2Json
 import CodificaEntradas
-# import bpnn
+import EntradasESaidas
+import BPNN
 
 
 def main():
-#   xml2json.main()
-    CodificaEntradas.main()
+    #XML2Json.main()
+    #CodificaEntradas.main()
+    #EntradasESaidas.main()
+    #BPNN.tempProximaHora()
+    BPNN.demo()
+    pass
+
 
 if __name__ == "__main__":
     main()
