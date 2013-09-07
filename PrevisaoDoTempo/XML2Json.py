@@ -45,13 +45,13 @@ def __processacsv__(arquivoum, arquivodois):
                 radiacao = 0
             objeto.append(
                 {
-                    #'chuva': row2[hora + 1],
+                    'chuva': row2[hora + 1],
                     'data': __data__(data),
                     #'p': row2[hora + 25],
                     't': row[hora + 1],
                     #'po': row[hora + 25],
                     #'velocidade': row2[hora + 135],
-                    #'radiacao': radiacao
+                    'radiacao': radiacao
                 }
             )
     return objeto

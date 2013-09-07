@@ -6,9 +6,14 @@
 
 import math
 import random
-import string
 
 random.seed(0)
+
+
+class Weight:
+    def __init__(self, wi, wo):
+        self.wi = wi
+        self.wo = wo
 
 
 # calculate a random number where:  a <= rand < b
@@ -27,7 +32,6 @@ def makeMatrix(I, J, fill=0.0):
 # our sigmoid function, tanh is a little nicer than the standard 1/(1+e^-x)
 def sigmoid(x):
     return math.tanh(x)
-
 
 # derivative of our sigmoid function, in terms of the output (i.e. y)
 def dsigmoid(y):
@@ -61,7 +65,6 @@ class NN:
         self.ci = makeMatrix(self.ni, self.nh)
         self.co = makeMatrix(self.nh, self.no)
 
-
     def update(self, inputs):
         if len(inputs) != self.ni - 1:
             raise ValueError('wrong number of inputs')
@@ -75,18 +78,17 @@ class NN:
         for j in range(self.nh):
             sum = 0.0
             for i in range(self.ni):
-                sum = sum + self.ai[i] * self.wi[i][j]
+                sum += self.ai[i] * self.wi[i][j]
             self.ah[j] = sigmoid(sum)
 
         # output activations
         for k in range(self.no):
             sum = 0.0
             for j in range(self.nh):
-                sum = sum + self.ah[j] * self.wo[j][k]
+                sum += self.ah[j] * self.wo[j][k]
             self.ao[k] = sigmoid(sum)
 
         return self.ao[:]
-
 
     def backPropagate(self, targets, N, M):
         if len(targets) != self.no:
@@ -139,8 +141,9 @@ class NN:
         print('Output weights:')
         for j in range(self.nh):
             print(self.wo[j])
+            #self.ao[k] = sigmoid(sum)
 
-    def train(self, patterns, iterations=1000, N=0.5, M=0.1):
+    def train(self, patterns, iterations=1000, N=2, M=0.1):
         # N: learning rate
         # M: momentum factor
         for i in range(iterations):
@@ -181,30 +184,70 @@ def demo():
         [[1, 1], [0]]
     ]
     # create a network with two input, two hidden, and one output nodes
-    n = NN(2, 1, 1)
+    n = NN(2, 2, 1)
     # train it with some patterns
-    n.train(pat, iterations=1000)
+    n.train(pat, iterations=50)
     # test it
-    n.test(pat)
-    n.weights()
+    # n.test(pat)
+    # n.weights()
+    print("Teste: ")
+    for p in pat:
+        result = showWeights(p[0], n.wi, n.wo, 1)
+        print(p[0], result)
 
 
-def tempProximaHora():
+def showWeights(inputs, wi, wo, no, nh):
+    ni = len(inputs) + 1
+    ai = inputs + [1.0]
+    ah = []
+    ao = []
+
+    if len(inputs) != ni - 1:
+        raise ValueError('wrong number of inputs')
+
+    # hidden activations
+    for j in range(nh):
+        sum = 0.0
+        for i in range(ni):
+            sum += ai[i] * wi[i][j]
+        ah.append(sigmoid(sum))
+
+    # output activations
+    for k in range(no):
+        sum = 0.0
+        for j in range(nh):
+            sum += ah[j] * wo[j][k]
+        ao.append(sigmoid(sum))
+    return ao[:]
+
+
+def treinamento(nomearquivo):
+
     from os import chdir
+    from datetime import datetime
     import json
+    antes = datetime.today()
     chdir('/home/en/TCC/CSV')
-    with open('A702_t_+6.json') as f:
+    with open(nomearquivo) as f:
         arquivo = f.read().replace('\n', '')
         arquivo = json.loads(arquivo)
     novoarquivo = []
     for item in arquivo:
-        if True or rand(0, 1000) < 100:
+        if rand(0, 1000) < 50:
             novoarquivo.append(item)
-    print len(novoarquivo)
+    print("len(novoarquivo): ", len(novoarquivo))
     inputsize = len(novoarquivo[0][0])
     outputsize = len(novoarquivo[0][1])
-    n = NN(inputsize, 2, outputsize)
-    n.train(novoarquivo, iterations=1000)
+    n = NN(inputsize, 4, outputsize)
+    n.train(novoarquivo, iterations=1000, N=0.001, M=0)
+    dif = datetime.today() - antes
+    print('secs: ', dif.seconds)
     #n.test(novoarquivo)
+
     n.weights()
+    weights = Weight(n.wi, n.wo)
+    path = "weights_" + nomearquivo
+    with open(path, 'w+') as f:
+        jsondumps = json.dumps(weights.__dict__, indent=4)
+        f.write(jsondumps)
     pass
