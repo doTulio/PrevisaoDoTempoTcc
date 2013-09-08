@@ -248,6 +248,6 @@ def treinamento(nomearquivo):
     weights = Weight(n.wi, n.wo)
     path = "weights_" + nomearquivo
     with open(path, 'w+') as f:
-        jsondumps = json.dumps(weights.__dict__, indent=4)
+        jsondumps = json.dumps(weights.__dict__)
         f.write(jsondumps)
     pass

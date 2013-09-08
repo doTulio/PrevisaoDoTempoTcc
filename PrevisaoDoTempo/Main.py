@@ -9,12 +9,12 @@ def main():
     #XML2Json.main()
     #CodificaEntradas.main()
     #EntradasESaidas.main()
-    #BPNN.treinamento("A702_t_+1.json")
+    BPNN.treinamento("A702_t_+1.json")
     BPNN.treinamento("A702_t_+2.json")
     BPNN.treinamento("A702_t_+3.json")
     BPNN.treinamento("A702_t_+4.json")
     BPNN.treinamento("A702_t_+5.json")
-    #BPNN.treinamento("A702_t_+6.json")
+    BPNN.treinamento("A702_t_+6.json")
     MostraResultados.prever()
     pass
 
