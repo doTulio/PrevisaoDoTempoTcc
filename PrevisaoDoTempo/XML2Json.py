@@ -78,8 +78,6 @@ def __salvajson__(dados):
 
 
 def main():
-    from os import chdir
-    chdir("/home/en/TCC/CSV")
     arquivoum = __lerarquivo__("A702_I.csv")
     arquivodois = __lerarquivo__("A702_II.csv")
     dados = __processacsv__(arquivoum, arquivodois)

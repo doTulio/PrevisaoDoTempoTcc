@@ -56,9 +56,7 @@ def __salvajson__(dados, json):
 
 
 def main():
-    from os import chdir
     import json
-    chdir('/home/en/TCC/CSV')
     arquivojson = __lerjson__(json)
     __tobinary__(arquivojson)
     __salvajson__(arquivojson, json)

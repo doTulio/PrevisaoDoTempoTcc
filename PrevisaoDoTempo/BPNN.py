@@ -1,3 +1,4 @@
+# coding=utf-8
 # Back-Propagation Neural Networks
 # 
 # Written in Python.  See http://www.python.org/
@@ -8,7 +9,6 @@ import math
 import random
 
 random.seed(0)
-
 
 class Weight:
     def __init__(self, wi, wo):
@@ -79,6 +79,7 @@ class NN:
             sum = 0.0
             for i in range(self.ni):
                 sum += self.ai[i] * self.wi[i][j]
+            #self.ah[j] = sigmoid(sum)
             self.ah[j] = sigmoid(sum)
 
         # output activations
@@ -86,6 +87,7 @@ class NN:
             sum = 0.0
             for j in range(self.nh):
                 sum += self.ah[j] * self.wo[j][k]
+            #self.ao[k] = sigmoid(sum)
             self.ao[k] = sigmoid(sum)
 
         return self.ao[:]
@@ -98,6 +100,7 @@ class NN:
         output_deltas = [0.0] * self.no
         for k in range(self.no):
             error = targets[k] - self.ao[k]
+            #output_deltas[k] = dsigmoid(self.ao[k]) * error
             output_deltas[k] = dsigmoid(self.ao[k]) * error
 
         # calculate error terms for hidden
@@ -106,6 +109,7 @@ class NN:
             error = 0.0
             for k in range(self.no):
                 error = error + output_deltas[k] * self.wo[j][k]
+            #hidden_deltas[j] = dsigmoid(self.ah[j]) * error
             hidden_deltas[j] = dsigmoid(self.ah[j]) * error
 
         # update output weights
@@ -155,45 +159,7 @@ class NN:
                 error = error + self.backPropagate(targets, N, M)
             if i % 10 == 0:
                 print('error %-.5f' % error)
-
-
-def demo():
-    # Teach network XOR function
-    """    pat = [
-        [[0, 0, 0], [0, 1]],
-        [[0, 0, 1], [1, 0]],
-        [[0, 1, 0], [0, 0]],
-        [[0, 1, 1], [1, 1]],
-        [[1, 0, 0], [0, 0]],
-        [[1, 0, 1], [1, 0]],
-        [[1, 1, 0], [0, 0]],
-        [[1, 1, 1], [1, 0]],
-    ]
-    """
-    pat = [
-        [[1, 0, 0], [1]],
-        [[1, 0, 1], [1]],
-        [[1, 1, 0], [1]],
-        [[1, 1, 1], [0]]
-    ]
-
-    pat = [
-        [[0, 0], [0]],
-        [[0, 1], [1]],
-        [[1, 0], [1]],
-        [[1, 1], [0]]
-    ]
-    # create a network with two input, two hidden, and one output nodes
-    n = NN(2, 2, 1)
-    # train it with some patterns
-    n.train(pat, iterations=50)
-    # test it
-    # n.test(pat)
-    # n.weights()
-    print("Teste: ")
-    for p in pat:
-        result = showWeights(p[0], n.wi, n.wo, 1)
-        print(p[0], result)
+                print('percent: %f\n' % ((float(i) / iterations) * 100))
 
 
 def showWeights(inputs, wi, wo, no, nh):
@@ -222,24 +188,27 @@ def showWeights(inputs, wi, wo, no, nh):
 
 
 def treinamento(nomearquivo):
-
-    from os import chdir
     from datetime import datetime
     import json
+
     antes = datetime.today()
-    chdir('/home/en/TCC/CSV')
     with open(nomearquivo) as f:
         arquivo = f.read().replace('\n', '')
         arquivo = json.loads(arquivo)
     novoarquivo = []
     for item in arquivo:
-        if rand(0, 1000) < 50:
+        if rand(0, 1000) < 500:
             novoarquivo.append(item)
     print("len(novoarquivo): ", len(novoarquivo))
+    for i, linha in enumerate(novoarquivo):
+        for j, saida in enumerate(linha[1]):
+            if saida == 0:
+                novoarquivo[i][1][j] = -1
+
     inputsize = len(novoarquivo[0][0])
     outputsize = len(novoarquivo[0][1])
-    n = NN(inputsize, 4, outputsize)
-    n.train(novoarquivo, iterations=1000, N=0.001, M=0)
+    n = NN(inputsize, 10, outputsize)
+    n.train(novoarquivo, iterations=1000, N=0.5, M=0)
     dif = datetime.today() - antes
     print('secs: ', dif.seconds)
     #n.test(novoarquivo)

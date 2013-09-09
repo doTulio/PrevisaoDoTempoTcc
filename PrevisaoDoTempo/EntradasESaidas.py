@@ -34,8 +34,6 @@ def __defineentradas__(arquivo, variavel, horaahead):
 
 
 def main():
-    from os import chdir
-    chdir('/home/en/TCC/CSV')
     arquivo = __lerjson__()
     saidas = ['t', 'chuva', 'radiacao']
     for hora in range(1, 7):
