@@ -14,7 +14,7 @@ def __salvaarquivo__(entradas, variavel, horaahead):
         f.write(json.dumps(entradas, indent=4))
 
 
-def __defineentradas__(arquivo, variavel, horaahead):
+def __defineentradas__(arquivo, variavelentrada, variavelsaida, horaahead):
     todos = []
     for i, item in enumerate(arquivo):
         if i + horaahead >= len(arquivo):
@@ -23,20 +23,24 @@ def __defineentradas__(arquivo, variavel, horaahead):
         saidas = []
         entradaesaidas = []
         for word in item.iteritems():
+            if word[0] not in variavelentrada:
+                continue
             for char in word[1]:
                 entradas.append(int(char))
-        for char in arquivo[i + horaahead][variavel]:
+        for char in arquivo[i + horaahead][variavelsaida]:
             saidas.append(int(char))
         entradaesaidas.append(entradas)
         entradaesaidas.append(saidas)
         todos.append(entradaesaidas)
-    __salvaarquivo__(todos, variavel, horaahead)
+    __salvaarquivo__(todos, variavelsaida, horaahead)
 
 
 def main():
     arquivo = __lerjson__()
     saidas = ['t', 'chuva', 'radiacao']
+    #entradas = ['t', 'p', 'velocidade', 'data', 'po', 'radiacao', 'chuva']
+    entradas = ['data', 'radiacao', 'chuva', 't']
+
     for hora in range(1, 7):
         for saida in saidas:
-            __defineentradas__(arquivo, saida, hora)
-    pass
+            __defineentradas__(arquivo, entradas, saida, hora)

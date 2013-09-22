@@ -28,10 +28,12 @@ def makeMatrix(I, J, fill=0.0):
         m.append([fill] * J)
     return m
 
+alpha = 0.001
+
 
 # our sigmoid function, tanh is a little nicer than the standard 1/(1+e^-x)
 def sigmoid(x):
-    return math.tanh(x)
+    return math.tanh(x * alpha)
 
 # derivative of our sigmoid function, in terms of the output (i.e. y)
 def dsigmoid(y):
@@ -197,7 +199,7 @@ def treinamento(nomearquivo):
         arquivo = json.loads(arquivo)
     novoarquivo = []
     for item in arquivo:
-        if rand(0, 1000) < 500:
+        if True or rand(0, 1000) < 500:
             novoarquivo.append(item)
     print("len(novoarquivo): ", len(novoarquivo))
     for i, linha in enumerate(novoarquivo):
@@ -207,8 +209,10 @@ def treinamento(nomearquivo):
 
     inputsize = len(novoarquivo[0][0])
     outputsize = len(novoarquivo[0][1])
-    n = NN(inputsize, 10, outputsize)
-    n.train(novoarquivo, iterations=1000, N=0.5, M=0)
+    print("inputsize: %d" % inputsize)
+    print("outputsize: %d" % outputsize)
+    n = NN(inputsize, 3, outputsize)
+    n.train(novoarquivo, iterations=500, N=0.001, M=0.5)
     dif = datetime.today() - antes
     print('secs: ', dif.seconds)
     #n.test(novoarquivo)

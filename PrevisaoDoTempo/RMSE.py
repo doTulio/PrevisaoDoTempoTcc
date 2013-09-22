@@ -2,21 +2,13 @@
 import json
 from math import tanh, sqrt
 from Weight import Weight
-from string import join
+from Util import *
 """
 vou precisar ler os arquivos binários com as previsões
 depois ler o arquivo com os pesos
 para todas as entradas, criar previsões com os pesos
 depois comparar o primeiro arquivo com as previsões calculadas a partir do peso
 """
-
-
-def __frombinarylisttoint__(binarylist):
-    resultstr = binarylist
-    for i, item in enumerate(resultstr):
-        resultstr[i] = str(item)
-    binarylist = join(resultstr, sep="")
-    return int(binarylist, 2)
 
 
 def __sigmoid__(x):
@@ -55,7 +47,7 @@ def __mostrar__(input, wi, wo, outputsize, nh):
             result[i] = 1
         else:
             result[i] = 0
-    resultint = __frombinarylisttoint__(result)
+    resultint = Util.frombinarylisttoint(result)
     return resultint
 
 
@@ -87,19 +79,45 @@ def __rmse__(medido, previsao):
 
 
 def rodar(nomearquivo):
-    outputsize = 6
     nh = 3
     medido = []
     previsao = []
     arquivo = __lerarquivo__(nomearquivo)
     pesos = __pesos__(nomearquivo)
+    outputsize = len(arquivo[0][1])
 
     for linha in arquivo:
-        medido.append(__frombinarylisttoint__(linha[1]))
+        medido.append(Util.frombinarylisttoint(linha[1]))
 
     for linha in arquivo:
         previsao.append(__mostrar__(linha[0], pesos.wi, pesos.wo, outputsize, nh))
 
+    print('max medido: %d' % max(medido))
+    print('max previsao: %d' % max(previsao))
+
+    print('min medido: %d' % min(medido))
+    print('min previsao: %d' % min(previsao))
+
+    maxmedido = max(medido)
+    maxprevisao = max(previsao)
+
+    minmedido = min(medido)
+    minprevisao = min(previsao)
+
     __rmse__(medido, previsao)
+
+    normaliza = NormalizaEntradaESaida(minprevisao, maxprevisao, minmedido, maxmedido)
+
+    tup = []
+    for i in range(len(medido)):
+        tup.append((medido[i], previsao[i]))
+    print tup[1000:1050]
+
+    previsaonormalizada = []
+    for prev in previsao:
+        previsaonormalizada.append(normaliza.normaliza(prev))
+    __rmse__(medido, previsaonormalizada)
+
+
     pass
 

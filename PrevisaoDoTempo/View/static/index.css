@@ -1,0 +1,25 @@
+#container {
+    width: 100%;
+    height: 400px;
+}
+
+.central {
+    width: 600px;
+    display: block;
+}
+.centraliza {
+    /*margin: 0 auto 0 auto;*/
+}
+
+label {
+    display: block;
+}
+
+form span {
+    display: inline-block;
+    width: 110px;
+}
+
+form input {
+    width: 70px;
+}

@@ -1,4 +1,7 @@
 # coding=utf-8
+from dateutil import parser
+
+
 def __lerjson__(json):
     with open('A702.json', 'r') as f:
         arquivojson = f.read().replace('\n', '')
@@ -6,7 +9,6 @@ def __lerjson__(json):
 
 
 def __tratadata__(data):
-    from dateutil import parser
     return parser.parse(data).hour
 
 

@@ -45,7 +45,8 @@ def __mostrar__(input, wi, wo, outputsize, nh):
     import string
     resultstr = string.join(resultstr, "")
     resultstr = int(resultstr, 2)
-    print(input, result, resultstr)
+    #print(input, result, resultstr)
+    return resultstr
 
 
 def __strtolist__(str):
@@ -55,15 +56,51 @@ def __strtolist__(str):
     return lista
 
 
-def prever():
-    chuva = __strtolist__('00000000')
-    data = __strtolist__('01111')
-    t = __strtolist__('011101')
-    radiacao = __strtolist__('110011100000')
-    input = chuva + data + t + radiacao
+__getBin__ = lambda x, n: str(bin(int(round(float(x)))))[2:].zfill(n)
+
+
+def __tobinary__(str, valor):
+    # t = 6
+    # r = 12
+    # p = 8
+    # hora = 5
+    bin = 0
+    if str == 't':
+        bin = 6
+    elif str == 'r':
+        bin = 12
+    elif str == 'p':
+        bin = 8
+    elif str == 'h':
+        bin = 5
+    return __getBin__(valor, bin)
+
+
+def prever(params, nomearquivo):
+    t = __strtolist__(__tobinary__('t', params['t']))
+    radiacao = __strtolist__(__tobinary__('r', params['r']))
+    chuva = __strtolist__(__tobinary__('p', params['p']))
+    data = __strtolist__(__tobinary__('h', params['h']))
+
+    input = t + radiacao + chuva + data
     import json
-    with open('weights_A702_t_+6.json', 'r') as f:
+    with open(nomearquivo, 'r') as f:
         weights = json.loads(f.read())
     weights = Weight(weights['wi'], weights['wo'])
-    print(weights.__dict__)
-    __mostrar__(input, weights.wi, weights.wo, 6, 4)
+    return __mostrar__(input, weights.wi, weights.wo, 6, 3)
+
+
+def temperaturas(params):
+    temperaturas = [int(params['t'])]
+    for i in range(1, 7):
+        nomearquivo = 'weights_A702_t_+' + str(i) + '.json'
+        temperaturas.append(prever(params, nomearquivo))
+    return temperaturas
+
+
+def precipitacao(params):
+    precipitacao = [int(params['p'])]
+    for i in range(1, 7):
+        nomearquivo = 'weights_A702_chuva_+' + str(i) + '.json'
+        precipitacao.append(prever(params, nomearquivo))
+    return precipitacao
