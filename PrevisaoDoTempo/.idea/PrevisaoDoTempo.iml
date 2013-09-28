@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/View" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gunstar" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/blinker" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/jinja2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/View/templates" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
