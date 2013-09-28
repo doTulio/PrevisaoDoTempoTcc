@@ -1,7 +1,10 @@
 # coding=utf-8
 import XML2Json
 import NormalizaEntradas
+import NormalizaSaidas
+import Rede
 import os
+import cPickle as pickle
 import app
 
 
@@ -9,8 +12,13 @@ def main():
     os.chdir("../CSV")
     # converte de CSV para JSON
     #XML2Json.main()
-    NormalizaEntradas.main()
-    #app.app.main()
+    #NormalizaEntradas.main()
+    #NormalizaSaidas.main()
+    '''vars = ['t', 'chuva']
+    for i in range(1, 7):
+        for var in vars:
+            Rede.train(var + '+' + str(i))'''
+    app.main()
 
 
 if __name__ == "__main__":

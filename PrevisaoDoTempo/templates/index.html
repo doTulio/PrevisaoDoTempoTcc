@@ -17,10 +17,12 @@
             <fieldset>
                 <legend>Entradas para a previsão</legend>
                 <div class='centraliza'>
-                    <label><span>Temperatura</span><input type='text' name='t' pattern='\d{1,2}' value='{{ params.t }}' required/></label>
-                    <label><span>Hora Atual</span><input type='text' name='h' pattern='\d{1,2}' value='{{ params.h }}' required/></label>
-                    <label><span>Precipitação</span><input type='text' name='p' pattern='\d{1,2}' value='{{ params.p }}' required/></label>
-                    <label><span>Radiação</span><input type='text' name='r' pattern='\d{1,4}' value='{{ params.r }}' required/></label>
+                    <label><span>Precipitação</span><input type='text' name='chuva' pattern='^\d+(\.\d{1,2})?$' value='{{ params.chuva }}' required/></label>
+                    <label><span>Hora Atual</span><input type='text' name='hora' pattern='\d{1,2}' value='{{ params.hora }}' required/></label>
+                    <label><span>Temperatura (hora anterior)</span><input type='text' name='tanterior' pattern='^\d+(\.\d{1,2})?$' value='{{ params.tanterior }}' required/></label>
+                    <label><span>Temperatura Atual</span><input type='text' name='tatual' pattern='^\d+(\.\d{1,2})?$' value='{{ params.tatual }}' required/></label>
+                    <label><span>Radiação (hora anterior)</span><input type='text' name='ranterior' pattern='^\d+(\.\d{1,2})?$' value='{{ params.ranterior }}' required/></label>
+                    <label><span>Radiação Atual</span><input type='text' name='ratual' pattern='^\d+(\.\d{1,2})?$' value='{{ params.ratual }}' required/></label>
                     <input type='submit' value='Rodar' />
                 </div>
             </fieldset>

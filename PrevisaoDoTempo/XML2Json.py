@@ -1,4 +1,5 @@
 # coding=utf-8
+import cPickle as pickle
 def __getmonth__(month):
     return {
         'JAN': 1,
@@ -82,5 +83,7 @@ def main():
     arquivodois = __lerarquivo__("A702_II.csv")
     dados = __processacsv__(arquivoum, arquivodois)
     __tratanulos__(dados)
-    __salvajson__(dados)
+    with open('A702.pickle', 'wb') as arquivo:
+        pickle.dump(dados, arquivo)
+    #__salvajson__(dados)
     return
