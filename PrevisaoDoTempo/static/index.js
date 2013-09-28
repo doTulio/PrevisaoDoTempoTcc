@@ -47,5 +47,11 @@
                data: precipitacao
            }]
         });
+        $("#visualizar").on('click', function() {
+            $("#leitura").toggle();
+        });
+        $("#leitura #fechar").on('click', function() {
+            $(this).parents("#leitura").hide();
+        });
     });
 })(jQuery);
