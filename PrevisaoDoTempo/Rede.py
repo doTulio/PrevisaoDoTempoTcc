@@ -1,6 +1,5 @@
 # coding=utf-8
 import neurolab as nl
-import numpy as np
 import cPickle as pickle
 
 

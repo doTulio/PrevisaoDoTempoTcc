@@ -15,6 +15,7 @@ class IndexHandler(RequestHandler):
         }
         obj = {
             'temperaturas': Previsao.prevertemperatura(params),
-            'precipitacao': Previsao.preverprecipitacao(params)
+            'precipitacao': Previsao.preverprecipitacao(params),
+            'radiacao': Previsao.preverradiacao(params)
         }
         self.render_template('index.html', obj=obj, params=params)

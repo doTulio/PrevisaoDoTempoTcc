@@ -60,3 +60,33 @@ def preverprecipitacao(params):
                 saida = 0
             precipitacaos.append(saida)
     return precipitacaos
+
+def preverradiacao(params):
+    inputs = []
+    inputs.append(params['chuva'])
+    inputs.append(params['hora'])
+    inputs.append(params['tanterior'])
+    inputs.append(params['tatual'])
+    inputs.append(params['ranterior'])
+    inputs.append(params['ratual'])
+
+    radiacaos = []
+    radiacaos.append(float(params['ratual']))
+
+    with open('A702_normalizado.pickle', 'r') as arquivo:
+        arquivoinput = pickle.load(arquivo)
+
+    inputNorm = nl.tool.Norm(arquivoinput)
+    inputNormTarget = inputNorm(inputs)
+
+    for i in range(1, 7):
+        with open('A702_radiacao+' + str(i) + '.pickle', 'r') as arquivo:
+            output = pickle.load(arquivo)
+            net = nl.load('radiacao+' + str(i) + '.net')
+            out = net.sim(inputNormTarget)
+            outputNorm = nl.tool.Norm(output)
+            saida = outputNorm.renorm(out)[0][0]
+            if saida < 1:
+                saida = 0
+            radiacaos.append(saida)
+    return radiacaos

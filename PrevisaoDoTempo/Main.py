@@ -14,6 +14,9 @@ def main():
     #XML2Json.main()
     #NormalizaEntradas.main()
     #NormalizaSaidas.main()
+    #Rede.train('t+6')
+    '''for i in range(1, 7):
+        Rede.train('radiacao+'+str(i))'''
     '''vars = ['t', 'chuva']
     for i in range(1, 7):
         for var in vars:

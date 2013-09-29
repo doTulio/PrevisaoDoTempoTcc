@@ -1,6 +1,10 @@
 (function ($) {
     $(document).ready(function() {
         $('#container').highcharts({
+            chart: {
+                backgroundColor: '#EEEEEE',
+                type: 'line'
+            },
            title: {
                text: 'Previsão do Tempo'
            },
@@ -14,10 +18,25 @@
                    x: 0,
                    y: -2
                },
-               showFirstLabel: false,
+               showFirstLabel: true,
                title: {
                    text: 'Temperatura'
                }
+           },{
+               labels: {
+                   align: 'right',
+                   x: 0,
+                   y: -2,
+                   formatter: function() { return this.value + ' kJ/m²'; }
+               },
+               title: {
+                   text: 'Radiação',
+                   style: {
+                       color: '#DDDF0D'
+                   }
+               },
+               showFirstLabel: true,
+               opposite: false
            }, {
                labels: {
                    align: 'right',
@@ -39,14 +58,23 @@
                yAxis: 0,
                data: temperaturas
            }, {
-               type: 'column',
+               type: 'spline',
                yAxis: 1,
+               borderWidth: 0,
+               color: '#DDDF0D',
+               name: 'Radiação',
+               shadow: true,
+               data: radiacao
+           }, {
+               type: 'column',
+               yAxis: 2,
                borderWidth: 0,
                name: 'Precipitação',
                shadow: true,
                data: precipitacao
            }]
         });
+
         $("#visualizar").on('click', function() {
             $("#leitura").toggle();
         });

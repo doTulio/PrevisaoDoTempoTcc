@@ -34,7 +34,7 @@ def __normaliza__(arquivo, hora, variavel):
 
 def main():
     arquivo = __lerarquivo__()
-    variaveis = ['t', 'chuva']
+    variaveis = ['t', 'chuva', 'radiacao']
     for i in range(1, 7):
         for variavel in variaveis:
             normalizado = __normaliza__(arquivo, i, variavel)
