@@ -16,5 +16,5 @@ myapp = Application(routes=routes, config=ConfigSettings)
 #if __name__ == '__main__':
 def main():
     from wsgiref.simple_server import make_server
-    server = make_server('192.168.0.10', 3333, myapp)
+    server = make_server('192.168.0.10', 8080, myapp)
     server.serve_forever()

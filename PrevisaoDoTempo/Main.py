@@ -6,6 +6,7 @@ import Rede
 import os
 import cPickle as pickle
 import app
+import Verificacao
 
 
 def main():
@@ -15,12 +16,17 @@ def main():
     #NormalizaEntradas.main()
     #NormalizaSaidas.main()
     #Rede.train('t+6')
-    '''for i in range(1, 7):
-        Rede.train('radiacao+'+str(i))'''
-    '''vars = ['t', 'chuva']
+    #Rede.train('t+1')
+    #Rede.train('t_Proximas6Horas')
+    '''vars = ['t', 'chuva', 'radiacao']
     for i in range(1, 7):
         for var in vars:
             Rede.train(var + '+' + str(i))'''
+    '''for i in range(1, 7):
+        Verificacao.verificar('t+%d' % i)'''
+    #Verificacao.verificar('t_Proximas6Horas')
+    #Verificacao.verificar('t+6')
+    #Verificacao.verificar('t+1')
     app.main()
 
 

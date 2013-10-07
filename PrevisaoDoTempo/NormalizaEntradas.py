@@ -1,7 +1,6 @@
 # coding=utf-8
 import cPickle as pickle
 from dateutil.parser import parse
-from neurolab.tool import Norm
 
 
 def __lerarquivo__():
@@ -26,18 +25,13 @@ def __normaliza__(arquivo):
         entrada = []
         entrada.append(float(hora['chuva']))
         entrada.append(float(__parserDataEmHora__(hora['data'])))
-        #entrada.append(float(arquivo[i - 2]['t']))
         entrada.append(float(arquivo[i - 1]['t']))
         entrada.append(float(arquivo[i]['t']))
-        #entrada.append(float(arquivo[i - 2]['radiacao']))
         entrada.append(float(arquivo[i - 1]['radiacao']))
         entrada.append(float(arquivo[i]['radiacao']))
-        #entrada.append(float(arquivo[i - 2]['po']))
-        #entrada.append(float(arquivo[i - 1]['po']))
-        #entrada.append(float(arquivo[i]['po']))
+        entrada.append(float(arquivo[i - 1]['po']))
+        entrada.append(float(arquivo[i]['po']))
         input.append(entrada)
-    #normf = Norm(input)
-    #norm_target = normf(input)
     return input[0:-6]
 
 

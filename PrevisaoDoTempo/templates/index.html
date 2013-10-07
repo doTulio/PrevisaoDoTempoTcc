@@ -24,6 +24,8 @@
                     <label><span>Temperatura Atual</span><input type='text' name='tatual' pattern='^\d+(\.\d{1,2})?$' value='{{ params.tatual }}' required/> °C (instantânea)</label>
                     <label><span>Radiação (hora anterior)</span><input type='text' name='ranterior' pattern='^\d+(\.\d{1,2})?$' value='{{ params.ranterior }}' required/> (kJ/m²)</label>
                     <label><span>Radiação Atual</span><input type='text' name='ratual' pattern='^\d+(\.\d{1,2})?$' value='{{ params.ratual }}' required/> (kJ/m²)</label>
+                    <label><span>Ponto de Orvalho (hora anterior)</span><input type='text' name='poanterior' pattern='^\d+(\.\d{1,2})?$' value='{{ params.poanterior }}' required/> °C</label>
+                    <label><span>Ponto de Orvalho Atual</span><input type='text' name='poatual' pattern='^\d+(\.\d{1,2})?$' value='{{ params.poatual }}' required/> °C</label>
                     <input type='submit' value='Rodar' />
                     <input id='visualizar' type='button' value='Visualizar leitura da estação (INMET-A702)' />
                 </div>

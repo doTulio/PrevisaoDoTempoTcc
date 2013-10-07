@@ -11,7 +11,9 @@ class IndexHandler(RequestHandler):
             'tanterior': self.request.GET.get('tanterior', 7.4),
             'tatual': self.request.GET.get('tatual', 8),
             'ranterior': self.request.GET.get('ranterior', 0),
-            'ratual': self.request.GET.get('ratual', 134.8)
+            'ratual': self.request.GET.get('ratual', 134.8),
+            'poanterior': self.request.GET.get('poanterior', 15.0),
+            'poatual': self.request.GET.get('poatual', 15.0)
         }
         obj = {
             'temperaturas': Previsao.prevertemperatura(params),

@@ -11,6 +11,8 @@ def prevertemperatura(params):
     inputs.append(params['tatual'])
     inputs.append(params['ranterior'])
     inputs.append(params['ratual'])
+    inputs.append(params['poanterior'])
+    inputs.append(params['poatual'])
 
     temperaturas = []
     temperaturas.append(float(params['tatual']))
@@ -39,6 +41,8 @@ def preverprecipitacao(params):
     inputs.append(params['tatual'])
     inputs.append(params['ranterior'])
     inputs.append(params['ratual'])
+    inputs.append(params['poanterior'])
+    inputs.append(params['poatual'])
 
     precipitacaos = []
     precipitacaos.append(float(params['chuva']))
@@ -69,6 +73,8 @@ def preverradiacao(params):
     inputs.append(params['tatual'])
     inputs.append(params['ranterior'])
     inputs.append(params['ratual'])
+    inputs.append(params['poanterior'])
+    inputs.append(params['poatual'])
 
     radiacaos = []
     radiacaos.append(float(params['ratual']))
