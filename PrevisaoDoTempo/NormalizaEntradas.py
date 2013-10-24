@@ -23,8 +23,8 @@ def __normaliza__(arquivo):
         if i == 0:
             continue
         entrada = []
-        entrada.append(float(hora['chuva']))
-        entrada.append(float(__parserDataEmHora__(hora['data'])))
+        entrada.append(float(arquivo[i]['chuva']))
+        entrada.append(float(__parserDataEmHora__(arquivo[i]['data'])))
         entrada.append(float(arquivo[i - 1]['t']))
         entrada.append(float(arquivo[i]['t']))
         entrada.append(float(arquivo[i - 1]['radiacao']))

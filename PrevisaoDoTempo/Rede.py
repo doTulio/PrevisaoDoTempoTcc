@@ -27,7 +27,7 @@ def train(previsao):
     pl.xlabel(u'Número da época')
     pl.ylabel(u'Erro')
     pl.savefig(previsao + '_erro.png')
-    pl.show()
+    #pl.show()
     net.save(previsao + '.net')
     #net = nl.load('t_+1.net')
     #teste = [24.2, 25.4, 0, 0]
